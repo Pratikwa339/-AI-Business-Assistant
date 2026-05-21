@@ -1,31 +1,31 @@
 # Task Tracker — AI Business Automation Assistant
 
 ## Backend
-- [ ] Fix `database.py` — add `get_db()` dependency
-- [ ] Fix `models.py` — add `created_at`, `status` fields
-- [ ] Rewrite `main.py` — fix all bugs, add all endpoints, upgrade Gemini SDK
-- [ ] Fix `automation.py` — env vars, CSV logging, error handling
-- [ ] Create `.env` file
-- [ ] Fix `requirements.txt`
-- [ ] Create `.gitignore`
+- [x] Fix `database.py` — add `get_db()` dependency
+- [x] Fix `models.py` — add `created_at`, `status` fields
+- [x] Rewrite `main.py` — fix all bugs, add all endpoints, upgrade Gemini SDK
+- [x] Fix `automation.py` — env vars, CSV logging, error handling
+- [x] Create `.env` file
+- [x] Fix `requirements.txt`
+- [x] Create `.gitignore`
 
 ## Frontend
-- [ ] Overhaul `index.html` — meta tags, fonts
-- [ ] Rewrite `index.css` — design system / CSS variables
-- [ ] Rewrite `App.css` — premium dark glassmorphism theme
-- [ ] Rewrite `App.jsx` — tabbed layout with navbar
-- [ ] Rewrite `Chatbot.jsx` — chat bubble UI with history
-- [ ] Rewrite `LeadForm.jsx` — animated form with validation
-- [ ] Rewrite `Dashboard.jsx` — stats cards + data table
-- [ ] Update `api.js` — configurable base URL
-- [ ] Update `vite.config.js` — proxy + build config
+- [x] Overhaul `index.html` — meta tags, fonts
+- [x] Rewrite `index.css` — design system / CSS variables
+- [x] Rewrite `App.css` — premium dark glassmorphism theme
+- [x] Rewrite `App.jsx` — tabbed layout with navbar
+- [x] Rewrite `Chatbot.jsx` — chat bubble UI with history
+- [x] Rewrite `LeadForm.jsx` — animated form with validation
+- [x] Rewrite `Dashboard.jsx` — stats cards + data table
+- [x] Update `api.js` — configurable base URL
+- [x] Update `vite.config.js` — proxy + build config
 
 ## Deployment
-- [ ] Create `render.yaml` + `Procfile`
-- [ ] Create `vercel.json`
-- [ ] Create root `README.md`
+- [x] Create `render.yaml` + `Procfile`
+- [x] Create `vercel.json`
+- [x] Create root `README.md`
 
 ## Verification
-- [ ] Test backend locally
-- [ ] Test frontend locally
-- [ ] Browser test full flow
+- [x] Test backend locally
+- [x] Test frontend locally
+- [x] Browser test full flow

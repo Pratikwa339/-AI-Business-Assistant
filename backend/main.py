@@ -4,7 +4,7 @@ import csv
 import logging
 from datetime import datetime, timedelta
 
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, EmailStr
@@ -123,7 +123,7 @@ def chat(data: ChatRequest):
 
 
 @app.post("/lead")
-def create_lead(data: LeadRequest, db: Session = Depends(get_db)):
+def create_lead(data: LeadRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     """Create a new lead and trigger automation workflows."""
     if not data.name.strip() or not data.email.strip() or not data.phone.strip():
         raise HTTPException(status_code=400, detail="Name, email, and phone are required.")
@@ -141,20 +141,17 @@ def create_lead(data: LeadRequest, db: Session = Depends(get_db)):
         db.commit()
         db.refresh(new_lead)
 
-        # 2. Automation: Log to CSV
-        log_lead_to_csv(new_lead.name, new_lead.email, new_lead.phone, new_lead.message)
+        # 2. Queue automation tasks in the background
+        background_tasks.add_task(log_lead_to_csv, new_lead.name, new_lead.email, new_lead.phone, new_lead.message)
+        background_tasks.add_task(send_email, new_lead.name, new_lead.email, new_lead.phone, new_lead.message)
 
-        # 3. Automation: Send email notification (non-blocking — don't fail if email fails)
-        email_sent = send_email(new_lead.name, new_lead.email, new_lead.phone, new_lead.message)
-
-        logger.info(f"New lead created: {new_lead.email} (ID: {new_lead.id})")
+        logger.info(f"New lead created and automations queued: {new_lead.email} (ID: {new_lead.id})")
 
         return {
             "message": "Lead submitted successfully!",
             "lead": new_lead.to_dict(),
             "automations": {
-                "email_notification": email_sent,
-                "csv_logged": True,
+                "queued": True,
             },
         }
 
